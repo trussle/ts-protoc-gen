@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "description": "Protocol Buffers Generator Plugin for TypeScript",
   "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "npm run clean && tsc",
+    "example": "cd examples && ./build.sh && npm run playground",
+    "playground": "cd examples && tsc index && node index",
+    "dev": "npm run build && npm run example"
+  },
   "bin": {
     "protoc-gen-ts": "bin/protoc-gen-ts"
   },
@@ -21,8 +28,12 @@
   "author": "Michal Witkowski",
   "license": "MIT",
   "dependencies": {
+    "@types/google-protobuf": "^3.2.1",
+    "@types/node": "^7.0.5",
     "babel": "^6.5.2",
-    "get-stdin": "^5.0.1",
     "google-protobuf": "^3.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.2.1"
   }
 }

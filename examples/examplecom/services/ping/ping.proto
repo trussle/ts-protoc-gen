@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package examplecom.services.ping;
 
+import "google/protobuf/empty.proto";
+
 message PingRequest {
   string value = 1;
   int32 sleep_time_ms = 2;
@@ -14,11 +16,11 @@ message PingResponse {
 }
 
 service PingService {
-  rpc PingEmpty(Empty) returns (PingResponse) {}
+  rpc PingEmpty(google.protobuf.Empty) returns (PingResponse) {}
 
   rpc Ping(PingRequest) returns (PingResponse) {}
 
-  rpc PingError(PingRequest) returns (Empty) {}
+  rpc PingError(PingRequest) returns (google.protobuf.Empty) {}
 
   rpc PingList(PingRequest) returns (stream PingResponse) {}
 }

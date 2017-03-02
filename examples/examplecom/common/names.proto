@@ -1,9 +1,31 @@
 syntax = "proto3";
 
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
 package examplecom.common;
 
 message CommonName {
     string name = 1;
+
+    map<string, NamesEnum> my_enum = 2;
+    map<string, CommonId> my_msg = 3;
+    repeated CommonId multi_id = 4;
+    repeated google.protobuf.Timestamp multi_timestamp = 5;
+
+    message InnerName {
+        string inner_name_prop = 1;
+        google.protobuf.Any inner_any_prop = 2;
+        google.protobuf.Timestamp inner_timestamp = 3;
+        google.protobuf.Duration inner_duration = 4;
+    }
+}
+
+enum NamesEnum {
+    DEFAULT = 0;
+    FIRST_NAME = 1;
+    SECOND_NAME = 2;
 }
 
 message CommonId {

@@ -1,7 +1,10 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package examplecom.services.complextypes;
 
+import "examplecom/common/names.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 enum SomeEnum {
   DEFAULT = 0;
@@ -10,28 +13,84 @@ enum SomeEnum {
 }
 
 message OuterMessage {
-  string some_string = 1;
+  required string some_string = 1;
 
-  message InnerMessage { 
-    int32 some_int = 1;
+  required examplecom.common.CommonName some_common_name = 2;
+
+  message InnerMessage {
+    required int32 some_int = 1;
+
+    message DeepMessage {
+      required int32 some_deep_int = 1;
+    }
+    required DeepMessage some_deep_message = 3;
+
+    map<int64, examplecom.common.CommonName.InnerName> inner_to_inner_name = 4;
+    map<int64, string> inner_to_string = 5;
   }
-  InnerMessage some_message = 2;
+  required InnerMessage some_inner_message = 3;
+
+  required examplecom.common.CommonName.InnerName some_inner_name = 4;
 
   enum InnerEnum {
     ANOTHER_DEFAULT = 0;
     NON_DEFAULT = 1;
   }
-  InnerEnum some_enum = 3;
+  required InnerEnum some_inner_enum = 5;
+
+  required examplecom.common.NamesEnum some_names_enum = 6;
+
+  required SomeEnum some_enum = 7;
+
+  required bool some_bool = 8;
 }
 
 message SomeRequest {
-  SomeEnum some_enum = 1;
-  string some_string = 2;
+  required SomeEnum some_enum = 1;
+  required string some_string = 2;
   map<string, OuterMessage> map_message = 3;
+  repeated google.protobuf.Empty some_empty = 9;
+  repeated google.protobuf.Timestamp some_timestamp= 10;
+  repeated bytes some_bytes = 11;
 
-  
+
+  oneof oneof_number_one {
+      string my_oneof_one_string = 4;
+      int32 my_oneof_one_int = 5;
+      SomeEnum my_oneof_enum = 6;
+  }
+
+  oneof oneof_number_two {
+      OuterMessage my_oneof_two_outer = 7;
+      uint64 myoneof_two_uint = 8;
+  }
 }
 
 message SomeResponse {
-  OuterMessage some_message = 1;
+  required OuterMessage some_message = 1;
 }
+
+message SomeComplex {
+  message SimpleString {
+    required string simple = 1;
+  }
+
+  message AnotherString {
+    required string another = 1;
+  }
+
+  extend SomeComplex {
+    optional SomeComplex.AnotherString some_ext_another = 107;
+  }
+
+  repeated SimpleString some_responses = 1;
+  map<string, SimpleString> resp_table = 2;
+
+  extensions 100 to 199;
+}
+
+extend SomeComplex {
+  optional SomeComplex.SimpleString some_ext_simp = 105;
+}
+
+
