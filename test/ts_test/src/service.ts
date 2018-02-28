@@ -13,6 +13,7 @@ describe("ts service", () => {
     assert.strictEqual(simple_service_pb_service.SimpleService.DoUnary.responseStream, false);
     assert.strictEqual(simple_service_pb_service.SimpleService.DoUnary.requestType, simple_service_pb.UnaryRequest);
     assert.strictEqual(simple_service_pb_service.SimpleService.DoUnary.responseType, external_child_message_pb.ExternalChildMessage);
+    assert.strictEqual(simple_service_pb_service.SimpleService.DoUnary.path, "/examplecom.SimpleService/DoUnary");
 
     assert.strictEqual(simple_service_pb_service.SimpleService.DoStream.methodName, "DoStream");
     assert.strictEqual(simple_service_pb_service.SimpleService.DoStream.service, simple_service_pb_service.SimpleService);
@@ -20,5 +21,6 @@ describe("ts service", () => {
     assert.strictEqual(simple_service_pb_service.SimpleService.DoStream.responseStream, true);
     assert.strictEqual(simple_service_pb_service.SimpleService.DoStream.requestType, simple_service_pb.StreamRequest);
     assert.strictEqual(simple_service_pb_service.SimpleService.DoStream.responseType, external_child_message_pb.ExternalChildMessage);
+    assert.strictEqual(simple_service_pb_service.SimpleService.DoStream.path, "/examplecom.SimpleService/DoStream");
   });
 });
