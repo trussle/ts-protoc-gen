@@ -1,5 +1,5 @@
 {
-  "name": "ts-protoc-gen",
+  "name": "@trussle/ts-protoc-gen",
   "version": "0.4.0",
   "description": "Protoc Plugin for TypeScript Declarations and Service Definitions",
   "scripts": {
